@@ -1,0 +1,3 @@
+[submodule "prometheus-rsocket-proxy"]
+	path = prometheus-rsocket-proxy
+	url = https://github.com/micrometer-metrics/prometheus-rsocket-proxy.git

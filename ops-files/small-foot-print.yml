@@ -1,0 +1,14 @@
+#@ load("@ytt:overlay", "overlay")
+
+#@overlay/match by=overlay.subset({"metadata":{"name":"prometheus-proxy"}, "kind": "Deployment"})
+---
+spec:
+  #@overlay/match missing_ok=True
+  replicas: 1
+  template:
+    spec:
+      containers:
+      #@overlay/match by="name"
+      - name: prometheus-proxy
+        #@overlay/remove
+        resources:

@@ -1,0 +1,21 @@
+#@ load("@ytt:overlay", "overlay")
+
+#@overlay/match by=overlay.subset({"metadata":{"name":"prometheus-proxy"}, "kind": "Service"})
+---
+spec:
+  #@overlay/replace
+  type: NodePort
+  ports:
+  #@overlay/match by="name"
+  - name: rsocket
+    #@overlay/match missing_ok=True
+    nodePort: 32754
+metadata:
+  #@overlay/match missing_ok=True
+  annotations:
+    spring.cloud.gateway/port: scrape
+    spring.cloud.gateway/routes: |
+      predicates:
+      - Host=prometheus-proxy.k8s.bosh.tokyo
+      filters:
+      - RequestLogging
