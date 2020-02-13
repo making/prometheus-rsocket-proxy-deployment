@@ -1,0 +1,30 @@
+#@ load("@ytt:overlay", "overlay")
+
+#@overlay/match by=overlay.subset({"metadata":{"name":"prometheus-proxy"}, "kind": "Deployment"})
+---
+spec:
+  template:
+    spec:
+      containers:
+      #@overlay/match by="name"
+      - name: prometheus-proxy
+        #@overlay/match missing_ok=True
+        env:
+        - name: INFO_K8S_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        - name: INFO_K8S_POD
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: INFO_K8S_APP
+          value: prometheus-proxy
+        - name: MANAGEMENT_METRICS_TAGS_ORGANIZATION
+          value: cfcr-aws
+        - name: MANAGEMENT_METRICS_TAGS_SPACE
+          value: "${INFO_K8S_NAMESPACE}"
+        - name: MANAGEMENT_METRICS_TAGS_APPLICATION
+          value: "${INFO_K8S_APP}"
+        - name: MANAGEMENT_METRICS_TAGS_INSTANCE_ID
+          value: "${INFO_K8S_POD}"
