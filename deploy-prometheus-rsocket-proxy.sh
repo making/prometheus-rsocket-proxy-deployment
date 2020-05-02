@@ -2,8 +2,8 @@
 
 kapp deploy -a rsocket-proxy --diff-changes \
   -f <(ytt -f vendor/prometheus-rsocket-proxy/scripts/kubernetes/proxy/ \
-           -f ops-files/small-foot-print.yml \
-           -f ops-files/metrics-tags.yml \
-           -f ops-files/gateway.yml \
+           -f overlays/small-foot-print.yml \
+           -f overlays/metrics-tags.yml \
+           -f overlays/gateway.yml \
            $@ | kbld -f -)
 
