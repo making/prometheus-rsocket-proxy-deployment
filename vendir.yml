@@ -1,0 +1,11 @@
+apiVersion: vendir.k14s.io/v1alpha1
+kind: Config
+directories:
+- path: vendor
+  contents:
+  - path: prometheus-rsocket-proxy
+    git:
+      url: https://github.com/micrometer-metrics/prometheus-rsocket-proxy
+      ref: v0.9.0
+    includePaths:
+    - scripts/kubernetes/**/*

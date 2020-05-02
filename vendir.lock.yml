@@ -1,0 +1,9 @@
+apiVersion: vendir.k14s.io/v1alpha1
+directories:
+- contents:
+  - git:
+      commitTitle: Remove redundant bintray label definitions in subprojects...
+      sha: be5472c01ad0365e3eacd83c5a0836466a2343a2
+    path: prometheus-rsocket-proxy
+  path: vendor
+kind: LockConfig
